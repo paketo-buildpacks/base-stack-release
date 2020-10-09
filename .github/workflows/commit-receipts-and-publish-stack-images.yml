@@ -1,7 +1,7 @@
 name: Commit Receipts and Publish Stack Images
 on:
   repository_dispatch:
-    types: [ new-base-stack-rc ]
+    types: [ new-stack-rc ]
   workflow_dispatch:
     inputs:
       RUN_BASE_IMAGE:
