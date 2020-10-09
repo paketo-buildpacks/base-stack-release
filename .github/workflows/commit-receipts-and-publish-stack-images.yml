@@ -92,3 +92,4 @@ jobs:
           {
             "tag": "${{ steps.publish.outputs.version }}"
           }
+
