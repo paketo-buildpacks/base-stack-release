@@ -43,6 +43,11 @@ jobs:
     - name: Configure docker gcloud auth
       run: gcloud auth configure-docker
 
+    - name: Docker login
+      run: |
+        docker login -u ${{ secrets.CORE_DEPS_DOCKER_USER }} --password-stdin \
+          < <(echo "${{ secrets.CORE_DEPS_DOCKER_PASS }}")
+
     - name: Generate image receipts
       run: |
         docker pull "${BUILD_BASE_IMAGE}"
