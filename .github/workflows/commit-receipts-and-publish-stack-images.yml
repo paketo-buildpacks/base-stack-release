@@ -90,7 +90,7 @@ jobs:
       if: steps.commit.outputs.PUBLISH
       uses: paketo-buildpacks/github-config/actions/dispatch@main
       with:
-        repos: pivotal-cf/base-release
+        repos: paketo-buildpacks/base-release
         token: ${{ secrets.CORE_DEPS_CI_BOT_GITHUB_TOKEN }}
         event: receipt-update
         payload: |
