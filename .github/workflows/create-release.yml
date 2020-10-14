@@ -37,7 +37,7 @@ jobs:
       run: |
         run_base_sha="$(skopeo inspect docker://coredeps/run-rc:"${TAG}"-base | jq .Digest -r)"
         run_cnb_sha="$(skopeo inspect docker://coredeps/run-rc:"${TAG}"-base-cnb | jq .Digest -r)"
-        build_base_sha="$(skopeo inspect docker://coredeps/build-rc:"${TAG}"-base-cnb | jq .Digest -r)"
+        build_base_sha="$(skopeo inspect docker://coredeps/build-rc:"${TAG}"-base | jq .Digest -r)"
         build_cnb_sha="$(skopeo inspect docker://coredeps/build-rc:"${TAG}"-base-cnb | jq .Digest -r)"
 
         echo "::set-output name=run_base_sha::${run_base_sha}"
