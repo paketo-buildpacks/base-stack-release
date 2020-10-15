@@ -20,7 +20,7 @@ jobs:
     - name: Set Env Vars
       run: |
         if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-          echo ::set-env name=TAG::${{ github.event.inputs.TAG }}
+          echo "TAG=${{ github.event.inputs.TAG }}" >> $GITHUB_ENV
         fi
 
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master

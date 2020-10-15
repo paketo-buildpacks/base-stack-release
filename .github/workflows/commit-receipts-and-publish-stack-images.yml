@@ -29,10 +29,10 @@ jobs:
     - name: Set Env Vars
       run: |
         if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-          echo ::set-env name=RUN_BASE_IMAGE::${{ github.event.inputs.RUN_BASE_IMAGE }}
-          echo ::set-env name=RUN_CNB_IMAGE::${{ github.event.inputs.RUN_CNB_IMAGE }}
-          echo ::set-env name=BUILD_BASE_IMAGE::${{ github.event.inputs.BUILD_BASE_IMAGE }}
-          echo ::set-env name=BUILD_CNB_IMAGE::${{ github.event.inputs.BUILD_CNB_IMAGE }}
+          echo "RUN_BASE_IMAGE=${{ github.event.inputs.RUN_BASE_IMAGE }}" >> $GITHUB_ENV
+          echo "RUN_CNB_IMAGE=${{ github.event.inputs.RUN_CNB_IMAGE }}" >> $GITHUB_ENV
+          echo "BUILD_BASE_IMAGE=${{ github.event.inputs.BUILD_BASE_IMAGE }}" >> $GITHUB_ENV
+          echo "BUILD_CNB_IMAGE=${{ github.event.inputs.BUILD_CNB_IMAGE }}" >> $GITHUB_ENV
         fi
 
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
