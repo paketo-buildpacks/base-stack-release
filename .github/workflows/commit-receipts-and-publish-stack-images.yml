@@ -80,11 +80,22 @@ jobs:
         bumped_version="$( echo $version | cut -d . -f 1-2)".$bumped_patch
         echo "::set-output name=version::${bumped_version}"
 
+        sudo skopeo copy "docker://${BUILD_BASE_IMAGE}" "docker://index.docker.io/coredeps/build-rc:base"
         sudo skopeo copy "docker://${BUILD_BASE_IMAGE}" "docker://index.docker.io/coredeps/build-rc:$bumped_version-base"
+
+        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://index.docker.io/coredeps/build-rc:base-cnb"
         sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://index.docker.io/coredeps/build-rc:$bumped_version-base-cnb"
+        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://index.docker.io/coredeps/build-rc:latest"
+
+        sudo skopeo copy "docker://${RUN_BASE_IMAGE}" "docker://index.docker.io/coredeps/run-rc:base"
         sudo skopeo copy "docker://${RUN_BASE_IMAGE}" "docker://index.docker.io/coredeps/run-rc:$bumped_version-base"
+
+        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://index.docker.io/coredeps/run-rc:base-cnb"
         sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://index.docker.io/coredeps/run-rc:$bumped_version-base-cnb"
+        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://index.docker.io/coredeps/run-rc:latest"
+
         sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://gcr.io/cf-buildpacks-releng/run-test:base-cnb"
+        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://gcr.io/cf-buildpacks-releng/run-test:latest"
 
     - name: Trigger Release
       if: steps.commit.outputs.PUBLISH
