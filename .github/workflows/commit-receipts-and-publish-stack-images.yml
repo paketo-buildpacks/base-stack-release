@@ -12,6 +12,13 @@ on:
         required: true
       BUILD_CNB_IMAGE:
         required: true
+      VERSION:
+        required: false
+        default: ''
+      FORCE_PUBLISH:
+        required: false
+        default: 'false'
+        description: 'Publish images even if there is no receipt diff'
 
 env:
   RUN_BASE_IMAGE: ${{ github.event.client_payload.run_base_image }}
@@ -33,6 +40,8 @@ jobs:
           echo "RUN_CNB_IMAGE=${{ github.event.inputs.RUN_CNB_IMAGE }}" >> $GITHUB_ENV
           echo "BUILD_BASE_IMAGE=${{ github.event.inputs.BUILD_BASE_IMAGE }}" >> $GITHUB_ENV
           echo "BUILD_CNB_IMAGE=${{ github.event.inputs.BUILD_CNB_IMAGE }}" >> $GITHUB_ENV
+          echo "VERSION=${{ github.event.inputs.VERSION }}" >> $GITHUB_ENV
+          echo "FORCE_PUBLISH=${{ github.event.inputs.FORCE_PUBLISH }}" >> $GITHUB_ENV
         fi
 
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
@@ -69,30 +78,35 @@ jobs:
           git push
 
           echo ::set-output name=PUBLISH::true
+        elif [[ "${FORCE_PUBLISH}" == "true" ]]; then
+          echo ::set-output name=PUBLISH::true
         fi
 
     - name: Publish Images
       id: publish
       if: steps.commit.outputs.PUBLISH
       run: |
-        version="$(curl -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/$GITHUB_REPOSITORY/tags | jq -r '.[0].name // "0.0.0"')"
-        bumped_patch="$(($(echo $version | cut -d . -f 3) + 1))"
-        bumped_version="$( echo $version | cut -d . -f 1-2)".$bumped_patch
-        echo "::set-output name=version::${bumped_version}"
+        version="${VERSION}"
+        if [[ "${version}" == '' ]]; then
+          last_version="$(curl -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/$GITHUB_REPOSITORY/tags | jq -r '.[0].name // "0.0.0"')"
+          bumped_patch="$(($(echo $last_version | cut -d . -f 3) + 1))"
+          version="$( echo $last_version | cut -d . -f 1-2)".$bumped_patch
+        fi
+        echo "::set-output name=version::${version}"
 
-        sudo skopeo copy "docker://${BUILD_BASE_IMAGE}" "docker://index.docker.io/coredeps/build-rc:base"
-        sudo skopeo copy "docker://${BUILD_BASE_IMAGE}" "docker://index.docker.io/coredeps/build-rc:$bumped_version-base"
+        sudo skopeo copy "docker://${BUILD_BASE_IMAGE}" "docker://coredeps/build-rc:base"
+        sudo skopeo copy "docker://${BUILD_BASE_IMAGE}" "docker://coredeps/build-rc:$version-base"
 
-        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://index.docker.io/coredeps/build-rc:base-cnb"
-        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://index.docker.io/coredeps/build-rc:$bumped_version-base-cnb"
-        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://index.docker.io/coredeps/build-rc:latest"
+        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://coredeps/build-rc:base-cnb"
+        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://coredeps/build-rc:$version-base-cnb"
+        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://coredeps/build-rc:latest"
 
-        sudo skopeo copy "docker://${RUN_BASE_IMAGE}" "docker://index.docker.io/coredeps/run-rc:base"
-        sudo skopeo copy "docker://${RUN_BASE_IMAGE}" "docker://index.docker.io/coredeps/run-rc:$bumped_version-base"
+        sudo skopeo copy "docker://${RUN_BASE_IMAGE}" "docker://coredeps/run-rc:base"
+        sudo skopeo copy "docker://${RUN_BASE_IMAGE}" "docker://coredeps/run-rc:$version-base"
 
-        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://index.docker.io/coredeps/run-rc:base-cnb"
-        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://index.docker.io/coredeps/run-rc:$bumped_version-base-cnb"
-        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://index.docker.io/coredeps/run-rc:latest"
+        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://coredeps/run-rc:base-cnb"
+        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://coredeps/run-rc:$version-base-cnb"
+        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://coredeps/run-rc:latest"
 
         sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://gcr.io/cf-buildpacks-releng/run-test:base-cnb"
         sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://gcr.io/cf-buildpacks-releng/run-test:latest"
@@ -108,4 +122,3 @@ jobs:
           {
             "tag": "${{ steps.publish.outputs.version }}"
           }
-
