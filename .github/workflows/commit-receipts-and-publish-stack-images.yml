@@ -47,15 +47,15 @@ jobs:
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         version: '270.0.0'
-        service_account_key: ${{ secrets.CORE_DEPS_GCR_PUSH_BOT_KEY }}
+        service_account_key: ${{ secrets.GCR_PUSH_BOT_JSON_KEY }}
 
     - name: Configure docker gcloud auth
       run: gcloud auth configure-docker
 
     - name: Docker login
       run: |
-        docker login -u ${{ secrets.CORE_DEPS_DOCKER_USER }} --password-stdin \
-          < <(echo "${{ secrets.CORE_DEPS_DOCKER_PASS }}")
+        docker login -u ${{ secrets.PAKETO_BUILDPACKS_DOCKER_USER }} --password-stdin \
+          < <(echo "${{ secrets.PAKETO_BUILDPACKS_DOCKER_PASS }}")
 
     - name: Generate image receipts
       run: |
@@ -94,22 +94,22 @@ jobs:
         fi
         echo "::set-output name=version::${version}"
 
-        sudo skopeo copy "docker://${BUILD_BASE_IMAGE}" "docker://coredeps/build-rc:base"
-        sudo skopeo copy "docker://${BUILD_BASE_IMAGE}" "docker://coredeps/build-rc:$version-base"
+        sudo skopeo copy "docker://${BUILD_BASE_IMAGE}" "docker://paketobuildpacks/build:base"
+        sudo skopeo copy "docker://${BUILD_BASE_IMAGE}" "docker://paketobuildpacks/build:$version-base"
 
-        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://coredeps/build-rc:base-cnb"
-        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://coredeps/build-rc:$version-base-cnb"
-        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://coredeps/build-rc:latest"
+        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://paketobuildpacks/build:base-cnb"
+        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://paketobuildpacks/build:$version-base-cnb"
+        sudo skopeo copy "docker://${BUILD_CNB_IMAGE}" "docker://paketobuildpacks/build:latest"
 
-        sudo skopeo copy "docker://${RUN_BASE_IMAGE}" "docker://coredeps/run-rc:base"
-        sudo skopeo copy "docker://${RUN_BASE_IMAGE}" "docker://coredeps/run-rc:$version-base"
+        sudo skopeo copy "docker://${RUN_BASE_IMAGE}" "docker://paketobuildpacks/run:base"
+        sudo skopeo copy "docker://${RUN_BASE_IMAGE}" "docker://paketobuildpacks/run:$version-base"
 
-        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://coredeps/run-rc:base-cnb"
-        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://coredeps/run-rc:$version-base-cnb"
-        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://coredeps/run-rc:latest"
+        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://paketobuildpacks/run:base-cnb"
+        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://paketobuildpacks/run:$version-base-cnb"
+        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://paketobuildpacks/run:latest"
 
-        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://gcr.io/cf-buildpacks-releng/run-test:base-cnb"
-        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://gcr.io/cf-buildpacks-releng/run-test:latest"
+        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://gcr.io/paketo-buildpacks/run:base-cnb"
+        sudo skopeo copy "docker://${RUN_CNB_IMAGE}" "docker://gcr.io/paketo-buildpacks/run:latest"
 
     - name: Trigger Release
       if: steps.commit.outputs.PUBLISH

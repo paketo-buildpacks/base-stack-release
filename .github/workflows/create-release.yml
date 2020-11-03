@@ -8,8 +8,8 @@ on:
         required: true
 
 env:
-  BUILD_REPO: "coredeps/build-rc"
-  RUN_REPO: "coredeps/run-rc"
+  BUILD_REPO: "paketobuildpacks/build"
+  RUN_REPO: "paketobuildpacks/run"
   TAG: ${{ github.event.client_payload.tag }}
 
 jobs:
@@ -24,14 +24,6 @@ jobs:
         if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
           echo "TAG=${{ github.event.inputs.TAG }}" >> $GITHUB_ENV
         fi
-
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-      with:
-        version: '270.0.0'
-        service_account_key: ${{ secrets.TANZU_GCR_PUSH_KEY }}
-
-    - name: Configure docker gcloud auth
-      run: gcloud auth configure-docker
 
     - name: Get Image Refs
       id: image-refs
