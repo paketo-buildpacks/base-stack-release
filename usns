@@ -1,10 +1,10 @@
 [
     {
         "title": "USN-4608-1: ca-certificates update",
-        "release": "0.0.4"
+        "release": "0.0.97"
     },
     {
         "title": "USN-4602-1: Perl vulnerabilities",
-        "release": "0.0.3"
+        "release": "0.0.97"
     }
 ]
