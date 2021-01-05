@@ -55,7 +55,7 @@ ii  libmount1:amd64         2.31.1-0.4ubuntu3.7      amd64        device mountin
 ii  libncurses5:amd64       6.1-1ubuntu1.18.04       amd64        shared libraries for terminal handling
 ii  libncursesw5:amd64      6.1-1ubuntu1.18.04       amd64        shared libraries for terminal handling (wide character support)
 ii  libnettle6:amd64        3.4-1                    amd64        low level cryptographic library (symmetric and one-way cryptos)
-ii  libp11-kit0:amd64       0.23.9-2                 amd64        library for loading and coordinating access to PKCS#11 modules - runtime
+ii  libp11-kit0:amd64       0.23.9-2ubuntu0.1        amd64        library for loading and coordinating access to PKCS#11 modules - runtime
 ii  libpam-modules:amd64    1.1.8-3.6ubuntu2.18.04.2 amd64        Pluggable Authentication Modules for PAM
 ii  libpam-modules-bin      1.1.8-3.6ubuntu2.18.04.2 amd64        Pluggable Authentication Modules for PAM - helper binaries
 ii  libpam-runtime          1.1.8-3.6ubuntu2.18.04.2 all          Runtime support for the PAM library
