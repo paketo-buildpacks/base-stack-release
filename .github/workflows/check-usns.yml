@@ -13,9 +13,9 @@ jobs:
 
     - name: Get USN List
       run: |
-        curl -sL -u 'core-deps-ci-bot:${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}' \
-        api.github.com/repos/paketo-buildpacks/stack-usns/contents/usns | \
-        jq -r '.content' | base64 --decode > full-usn-list
+        curl -sL --fail -u 'paketo-bot:${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}' \
+          api.github.com/repos/paketo-buildpacks/stack-usns/contents/usns | \
+          jq -r '.content' | base64 --decode > full-usn-list
 
     - name: Update USNs
       uses: paketo-buildpacks/stacks/actions/usn-update@main
