@@ -8,8 +8,8 @@ on:
         required: true
 
 env:
-  BUILD_REPO: "paketobuildpacks/build"
-  RUN_REPO: "paketobuildpacks/run"
+  BUILD_REPO: "paketobuildpacks/core-deps-build"
+  RUN_REPO: "paketobuildpacks/core-deps-run"
   TAG: ${{ github.event.client_payload.tag }}
 
 jobs:
@@ -56,7 +56,7 @@ jobs:
       id: get-usns
       run: |
         curl -sL --fail -u 'paketo-bot:${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}' \
-          api.github.com/repos/paketo-buildpacks/stack-usns/contents/usns | \
+          api.github.com/repos/core-deps-ci/stack-usns/contents/usns | \
           jq -r '.content' | base64 --decode > full-usn-list
         echo "::set-output name=usn_path::full-usn-list"
 
@@ -107,10 +107,10 @@ jobs:
         title: "Update USNs"
         branch: automation/usns/update
 
-    - name: Trigger Tiny Rebuild
-      uses: paketo-buildpacks/github-config/actions/dispatch@main
-      with:
-        repos: paketo-buildpacks/stacks
-        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
-        event: new-base-image-release
-        payload: '{}'
+    # - name: Trigger Tiny Rebuild 
+    #   uses: paketo-buildpacks/github-config/actions/dispatch@main
+    #   with:
+    #     repos: paketo-buildpacks/stacks
+    #     token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+    #     event: new-base-image-release
+    #     payload: '{}'

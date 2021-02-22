@@ -2,7 +2,7 @@ name: Auto Approve paketo-bot PR
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ test ]
 
 jobs:
   approve:

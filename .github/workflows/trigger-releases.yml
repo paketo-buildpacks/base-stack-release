@@ -1,15 +1,15 @@
-name: Trigger Release
+name: Rebuild stack
 on:
   push:
     branches: [ main ]
-    paths: [ usns ]
+    paths: [ build-receipt, run-receipt ]
 
 jobs:
-  trigger-releases:
+  rebuild-stack:
     runs-on: ubuntu-18.04
 
     steps:
-    - name: Trigger Release
+    - name: Rebuild stack
       uses: paketo-buildpacks/github-config/actions/dispatch@main
       with:
         repos: paketo-buildpacks/stacks
