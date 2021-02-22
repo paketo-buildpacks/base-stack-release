@@ -11,6 +11,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Checkout Branch
+      uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main
+      with:
+        branch: automation/usns/update
+
     - name: Get USN List
       run: |
         curl -sL --fail -u 'paketo-bot:${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}' \
@@ -24,7 +29,6 @@ jobs:
         run_receipt: run-receipt
         full_usn_list: full-usn-list
         relevant_usn_list: usns
-
 
     - name: Commit
       id: commit
@@ -47,12 +51,3 @@ jobs:
         title: "Add new USNs"
         branch: automation/usns/update
 
-    # - name: Trigger Release
-    #   if: steps.commit.outputs.UPDATED
-    #   uses: paketo-buildpacks/github-config/actions/dispatch@main
-    #   with:
-    #     repos: paketo-buildpacks/stacks
-    #     token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
-    #     event: new-base-usn
-    #     payload: '{}'
-   #
