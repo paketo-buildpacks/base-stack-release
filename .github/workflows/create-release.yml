@@ -22,7 +22,7 @@ jobs:
     - name: Checkout Branch
       uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main
       with:
-        branch: automation/usns/update
+        branch: automation/usns/release
 
     - name: Set Env Vars
       run: |
@@ -97,7 +97,7 @@ jobs:
       if: ${{ steps.commit.outputs.commit_sha != '' }}
       uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@main
       with:
-        branch: automation/usns/update
+        branch: automation/usns/release
 
     - name: Open Pull Request
       if: ${{ steps.commit.outputs.commit_sha != '' }}
@@ -105,7 +105,7 @@ jobs:
       with:
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
         title: "Update USNs"
-        branch: automation/usns/update
+        branch: automation/usns/release
 
     # - name: Trigger Tiny Rebuild 
     #   uses: paketo-buildpacks/github-config/actions/dispatch@main
