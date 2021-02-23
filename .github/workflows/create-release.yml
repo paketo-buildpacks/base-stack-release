@@ -56,7 +56,7 @@ jobs:
       id: get-usns
       run: |
         curl -sL --fail -u 'paketo-bot:${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}' \
-          api.github.com/repos/core-deps-ci/stack-usns/contents/usns | \
+          api.github.com/repos/core-deps-ci-bot/stack-usns/contents/usns | \
           jq -r '.content' | base64 --decode > full-usn-list
         echo "::set-output name=usn_path::full-usn-list"
 
