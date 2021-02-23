@@ -2,7 +2,8 @@ name: Rebuild stack
 on:
   push:
     branches: [ main ]
-    paths: [ build-receipt, run-receipt ]
+    paths: [ usns ]
+  workflow_dispatch: {}
 
 jobs:
   rebuild-stack:
@@ -12,7 +13,7 @@ jobs:
     - name: Rebuild stack
       uses: paketo-buildpacks/github-config/actions/dispatch@main
       with:
-        repos: paketo-buildpacks/stacks
+        repos: core-deps-ci/stacks
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
         event: new-base-usn
         payload: '{}'
