@@ -18,10 +18,10 @@ jobs:
 
     - name: Get USN List
       run: |
-      echo "Test"
-        # curl -sL --fail -u 'paketo-bot:${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}' \
-        #   api.github.com/repos/paketo-buildpacks/stack-usns/contents/usns | \
-        #   jq -r '.content' | base64 --decode > full-usn-list
+        echo '[{"title":"USN-4744-1: OpenLDAP vulnerability","link":"https://ubuntu.com/security/notices/USN-4744-1","cves":[{"title":"CVE-2021-27212","link":"https://people.canonical.com/~ubuntu-security/cve/CVE-2021-27212","description":"In OpenLDAP through 2.4.57 and 2.5.x through 2.5.1alpha, an assertion failure in slapd can occur in the issuerAndThisUpdateCheck function via a crafted packet, resulting in a denial of service (daemon exit) via a short timestamp. This is related to schema_init.c and checkTime."}],"affected_packages":["apt"]}]' > full-usn-list
+      # curl -sL --fail -u 'paketo-bot:${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}' \
+      #   api.github.com/repos/paketo-buildpacks/stack-usns/contents/usns | \
+      #   jq -r '.content' | base64 --decode > full-usn-list
 
     - name: Update USNs
       uses: paketo-buildpacks/stacks/actions/usn-update@main
