@@ -1,4 +1,4 @@
-name: Commit Receipts and Publish Stack Images
+name: Commit Receipts
 on:
   repository_dispatch:
     types: [ new-stack-rc ]
@@ -20,7 +20,7 @@ env:
   BUILD_CNB_IMAGE: ${{ github.event.client_payload.build_cnb_image }}
 
 jobs:
-  commit-receipts-and-publish-stack-images:
+  commit-receipts:
     runs-on: ubuntu-18.04
 
     steps:
@@ -41,14 +41,6 @@ jobs:
           echo "BUILD_BASE_IMAGE=${{ github.event.inputs.BUILD_BASE_IMAGE }}" >> $GITHUB_ENV
           echo "BUILD_CNB_IMAGE=${{ github.event.inputs.BUILD_CNB_IMAGE }}" >> $GITHUB_ENV
         fi
-
-    - uses: google-github-actions/setup-gcloud@master
-      with:
-        version: '270.0.0'
-        service_account_key: ${{ secrets.GCR_PUSH_BOT_JSON_KEY }}
-
-    - name: Configure docker gcloud auth
-      run: gcloud auth configure-docker
 
     - name: Docker login
       run: |
