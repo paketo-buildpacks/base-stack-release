@@ -13,7 +13,7 @@ jobs:
     - name: Rebuild stack
       uses: paketo-buildpacks/github-config/actions/dispatch@main
       with:
-        repos: core-deps-ci/stacks
+        repos: core-deps-ci-bot/stacks
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
         event: new-base-usn
         payload: '{}'
