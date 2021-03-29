@@ -40,7 +40,6 @@ jobs:
           run_destination: paketotesting/run-rc
           version: ${{ github.sha }}
           stack: base
-          stacks_dir: ${GITHUB_WORKSPACE}
           publish: true
 
       - name: Test stack
