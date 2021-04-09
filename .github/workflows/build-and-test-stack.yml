@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-18.04
     outputs:
       receipts_diffs: ${{ steps.check-receipts.outputs.receipts_diffs }}
-      build_base_sha: ${{ steps.build-images.outputs.build_base_sha }}
-      build_cnb_sha: ${{ steps.build-images.outputs.build_cnb_sha }}
-      run_base_sha: ${{ steps.build-images.outputs.run_base_sha }}
-      run_cnb_sha: ${{ steps.build-images.outputs.run_cnb_sha }}
+      build_base_sha: ${{ steps.just-shas.outputs.build_base_sha }}
+      build_cnb_sha: ${{ steps.just-shas.outputs.build_cnb_sha }}
+      run_base_sha: ${{ steps.just-shas.outputs.run_base_sha }}
+      run_cnb_sha: ${{ steps.just-shas.outputs.run_cnb_sha }}
 
     steps:
       - uses: actions/checkout@v2
@@ -64,6 +64,19 @@ jobs:
             echo "::set-output name=receipts_diffs::true"
           fi
 
+      - name: Pull off SHAs
+        id: just-shas
+        run: |
+          build_base_sha="$(echo '${{ steps.build-images.outputs.build_base_sha }}' | sed 's|paketotesting/build-rc@||g')"
+          build_cnb_sha="$(echo '${{ steps.build-images.outputs.build_cnb_sha }}' | sed 's|paketotesting/build-rc@||g')"
+          run_base_sha="$(echo '${{ steps.build-images.outputs.run_base_sha }}' | sed 's|paketotesting/run-rc@||g')"
+          run_cnb_sha="$(echo '${{ steps.build-images.outputs.run_cnb_sha }}' | sed 's|paketotesting/run-rc@||g')"
+
+          echo "::set-output name=build_base_sha::${build_base_sha}"
+          echo "::set-output name=build_cnb_sha::${build_cnb_sha}"
+          echo "::set-output name=run_base_sha::${run_base_sha}"
+          echo "::set-output name=run_cnb_sha::${run_cnb_sha}"
+
   open-pr:
     runs-on: ubuntu-18.04
     if: ${{ needs.build-and-test.outputs.receipts_diffs == 'true' }}
@@ -79,11 +92,14 @@ jobs:
 
       - name: Generate image receipts
         run: |
-          docker pull "${{ needs.build-and-test.outputs.build_cnb_sha }}"
-          docker pull "${{ needs.build-and-test.outputs.run_cnb_sha }}"
+          build_cnb_image="paketotesting/build-rc@${{ needs.build-and-test.outputs.build_cnb_sha }}"
+          run_cnb_image="paketotesting/run-rc@${{ needs.build-and-test.outputs.run_cnb_sha }}"
 
-          docker run "${{ needs.build-and-test.outputs.build_cnb_sha }}" dpkg -l > build-receipt
-          docker run "${{ needs.build-and-test.outputs.run_cnb_sha }}" dpkg -l > run-receipt
+          docker pull "${build_cnb_image}"
+          docker pull "${run_cnb_image}"
+
+          docker run "${build_cnb_image}" dpkg -l > build-receipt
+          docker run "${run_cnb_image}" dpkg -l > run-receipt
 
       - name: Get package diff
         id: get-package-diff
@@ -124,10 +140,10 @@ jobs:
 
       - name: Update image files
         run: |
-          echo ${{ needs.build-and-test.outputs.build_base_sha }} > .github/ci-artifacts/build-base-image
-          echo ${{ needs.build-and-test.outputs.build_cnb_sha }} > .github/ci-artifacts/build-cnb-image
-          echo ${{ needs.build-and-test.outputs.run_base_sha }} > .github/ci-artifacts/run-base-image
-          echo ${{ needs.build-and-test.outputs.run_cnb_sha }} > .github/ci-artifacts/run-cnb-image
+          echo "paketotesting/build-rc@${{ needs.build-and-test.outputs.build_base_sha }}" > .github/ci-artifacts/build-base-image
+          echo "paketotesting/build-rc@${{ needs.build-and-test.outputs.build_cnb_sha }}" > .github/ci-artifacts/build-cnb-image
+          echo "paketotesting/run-rc@${{ needs.build-and-test.outputs.run_base_sha }}" > .github/ci-artifacts/run-base-image
+          echo "paketotesting/run-rc@${{ needs.build-and-test.outputs.run_cnb_sha }}" > .github/ci-artifacts/run-cnb-image
 
       - name: Get USN List
         id: get-usns
