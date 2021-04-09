@@ -170,7 +170,7 @@ jobs:
         uses: paketo-buildpacks/github-config/actions/pull-request/create-commit@main
         with:
           message: "Update receipts"
-          pathspec: "."
+          pathspec: ':!${{ steps.get-usns.outputs.usn_path }}'
 
       - name: Push Branch
         uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@main
