@@ -67,10 +67,10 @@ jobs:
       - name: Pull off SHAs
         id: just-shas
         run: |
-          build_base_sha="$(echo '${{ steps.build-images.outputs.build_base_sha }}' | sed 's|paketotesting/build-rc@||g')"
-          build_cnb_sha="$(echo '${{ steps.build-images.outputs.build_cnb_sha }}' | sed 's|paketotesting/build-rc@||g')"
-          run_base_sha="$(echo '${{ steps.build-images.outputs.run_base_sha }}' | sed 's|paketotesting/run-rc@||g')"
-          run_cnb_sha="$(echo '${{ steps.build-images.outputs.run_cnb_sha }}' | sed 's|paketotesting/run-rc@||g')"
+          build_base_sha="$(echo '${{ steps.build-images.outputs.build_base_sha }}' | sed 's|docker.io/paketotesting/build-rc@||g')"
+          build_cnb_sha="$(echo '${{ steps.build-images.outputs.build_cnb_sha }}' | sed 's|docker.io/paketotesting/build-rc@||g')"
+          run_base_sha="$(echo '${{ steps.build-images.outputs.run_base_sha }}' | sed 's|docker.io/paketotesting/run-rc@||g')"
+          run_cnb_sha="$(echo '${{ steps.build-images.outputs.run_cnb_sha }}' | sed 's|docker.io/paketotesting/run-rc@||g')"
 
           echo "::set-output name=build_base_sha::${build_base_sha}"
           echo "::set-output name=build_cnb_sha::${build_cnb_sha}"
