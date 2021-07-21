@@ -71,10 +71,10 @@ ii  libsmartcols1:amd64     2.31.1-0.4ubuntu3.7      amd64        smart column o
 ii  libss2:amd64            1.44.1-1ubuntu1.3        amd64        command-line interface parsing library
 ii  libssl1.1:amd64         1.1.1-1ubuntu2.1~18.04.9 amd64        Secure Sockets Layer toolkit - shared libraries
 ii  libstdc++6:amd64        8.4.0-1ubuntu1~18.04     amd64        GNU Standard C++ Library v3
-ii  libsystemd0:amd64       237-3ubuntu10.48         amd64        systemd utility library
+ii  libsystemd0:amd64       237-3ubuntu10.49         amd64        systemd utility library
 ii  libtasn1-6:amd64        4.13-2                   amd64        Manage ASN.1 structures (runtime)
 ii  libtinfo5:amd64         6.1-1ubuntu1.18.04       amd64        shared low-level terminfo library for terminal handling
-ii  libudev1:amd64          237-3ubuntu10.48         amd64        libudev shared library
+ii  libudev1:amd64          237-3ubuntu10.49         amd64        libudev shared library
 ii  libunistring2:amd64     0.9.9-0ubuntu2           amd64        Unicode string library for C
 ii  libuuid1:amd64          2.31.1-0.4ubuntu3.7      amd64        Universally Unique ID library
 ii  libyaml-0-2:amd64       0.1.7-2ubuntu3           amd64        Fast YAML 1.1 parser and emitter library
