@@ -1,7 +1,7 @@
 [
     {
         "title": "USN-5310-1: GNU C Library vulnerabilities",
-        "release": "unreleased"
+        "release": "1.1.46"
     },
     {
         "title": "USN-5288-1: Expat vulnerabilities",
