@@ -21,7 +21,7 @@ ii  e2fsprogs               1.44.1-1ubuntu1.3         amd64        ext2/ext3/ext
 ii  fdisk                   2.31.1-0.4ubuntu3.7       amd64        collection of partitioning utilities
 ii  findutils               4.6.0+git+20170828-2      amd64        utilities for finding files--find, xargs
 ii  gcc-8-base:amd64        8.4.0-1ubuntu1~18.04      amd64        GCC, the GNU Compiler Collection (base package)
-ii  gpgv                    2.2.4-1ubuntu1.4          amd64        GNU privacy guard - signature verification tool
+ii  gpgv                    2.2.4-1ubuntu1.5          amd64        GNU privacy guard - signature verification tool
 ii  grep                    3.1-2build1               amd64        GNU grep, egrep and fgrep
 ii  gzip                    1.6-5ubuntu1.2            amd64        GNU compression utilities
 ii  hostname                3.20                      amd64        utility to set/show the host name or domain name
