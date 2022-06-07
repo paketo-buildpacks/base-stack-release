@@ -1,7 +1,7 @@
 [
     {
         "title": "USN-5464-1: E2fsprogs vulnerability",
-        "release": "unreleased"
+        "release": "1.1.67"
     },
     {
         "title": "USN-5446-1: dpkg vulnerability",
