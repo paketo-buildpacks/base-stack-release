@@ -39,6 +39,7 @@ ii  libcap-ng0:amd64        0.7.7-3.1                 amd64        An alternate 
 ii  libcom-err2:amd64       1.44.1-1ubuntu1.4         amd64        common error description library
 ii  libdb5.3:amd64          5.3.28-13.1ubuntu1.1      amd64        Berkeley v5.3 Database Libraries [runtime]
 ii  libdebconfclient0:amd64 0.213ubuntu1              amd64        Debian Configuration Management System (C-implementation library)
+ii  libexpat1:amd64         2.2.5-3ubuntu0.7          amd64        XML parsing C library - runtime library
 ii  libext2fs2:amd64        1.44.1-1ubuntu1.4         amd64        ext2/ext3/ext4 file system libraries
 ii  libfdisk1:amd64         2.31.1-0.4ubuntu3.7       amd64        fdisk partitioning library
 ii  libffi6:amd64           3.2.1-8                   amd64        Foreign Function Interface library runtime
