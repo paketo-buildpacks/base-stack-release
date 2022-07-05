@@ -36,7 +36,7 @@ ii  gcc-7-base:amd64           7.5.0-3ubuntu1~18.04                amd64        
 ii  gcc-8-base:amd64           8.4.0-1ubuntu1~18.04                amd64        GCC, the GNU Compiler Collection (base package)
 ii  git                        1:2.17.1-1ubuntu0.11                amd64        fast, scalable, distributed revision control system
 ii  git-man                    1:2.17.1-1ubuntu0.11                all          fast, scalable, distributed revision control system (manual pages)
-ii  gpgv                       2.2.4-1ubuntu1.5                    amd64        GNU privacy guard - signature verification tool
+ii  gpgv                       2.2.4-1ubuntu1.6                    amd64        GNU privacy guard - signature verification tool
 ii  grep                       3.1-2build1                         amd64        GNU grep, egrep and fgrep
 ii  gzip                       1.6-5ubuntu1.2                      amd64        GNU compression utilities
 ii  hostname                   3.20                                amd64        utility to set/show the host name or domain name
@@ -134,7 +134,7 @@ ii  libsepol1:amd64            2.7-1ubuntu0.1                      amd64        
 ii  libsmartcols1:amd64        2.31.1-0.4ubuntu3.7                 amd64        smart column output alignment library
 ii  libsqlite3-0:amd64         3.22.0-1ubuntu0.5                   amd64        SQLite 3 shared library
 ii  libss2:amd64               1.44.1-1ubuntu1.4                   amd64        command-line interface parsing library
-ii  libssl1.1:amd64            1.1.1-1ubuntu2.1~18.04.19           amd64        Secure Sockets Layer toolkit - shared libraries
+ii  libssl1.1:amd64            1.1.1-1ubuntu2.1~18.04.20           amd64        Secure Sockets Layer toolkit - shared libraries
 ii  libstdc++-7-dev:amd64      7.5.0-3ubuntu1~18.04                amd64        GNU Standard C++ Library v3 (development files)
 ii  libstdc++6:amd64           8.4.0-1ubuntu1~18.04                amd64        GNU Standard C++ Library v3
 ii  libsystemd0:amd64          237-3ubuntu10.53                    amd64        systemd utility library
@@ -158,7 +158,7 @@ ii  mount                      2.31.1-0.4ubuntu3.7                 amd64        
 ii  ncurses-base               6.1-1ubuntu1.18.04                  all          basic terminal type definitions
 ii  ncurses-bin                6.1-1ubuntu1.18.04                  amd64        terminal-related programs and man pages
 ii  netbase                    5.4                                 all          Basic TCP/IP networking system
-ii  openssl                    1.1.1-1ubuntu2.1~18.04.19           amd64        Secure Sockets Layer toolkit - cryptographic utility
+ii  openssl                    1.1.1-1ubuntu2.1~18.04.20           amd64        Secure Sockets Layer toolkit - cryptographic utility
 ii  passwd                     1:4.5-1ubuntu2.3                    amd64        change and administer password and group data
 ii  patch                      2.7.6-2ubuntu1.1                    amd64        Apply a diff file to an original
 ii  perl                       5.26.1-6ubuntu0.5                   amd64        Larry Wall's Practical Extraction and Report Language
